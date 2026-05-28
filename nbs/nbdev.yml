@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "juno-adx-client"
+  site-url: "https://equinor.github.io/juno-adx-client"
+  description: "Azure Data Explorer client helpers for Juno notebooks"
+  repo-branch: main
+  repo-url: "https://github.com/equinor/juno-adx-client"

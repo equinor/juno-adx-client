@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "juno-adx-client"
+dynamic = ["version"]
+description = "Azure Data Explorer client helpers for Juno notebooks"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name = "Mats Utne Vaage", email = "muv@equinor.com"}]
+keywords = ['nbdev']
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "azure-identity",
+    "azure-kusto-data",
+    "pandas",
+]
+
+[project.optional-dependencies]
+dev = [
+    "nbdev",
+    "ipykernel",
+]
+
+[project.urls]
+Repository = "https://github.com/equinor/juno-adx-client"
+Documentation = "https://equinor.github.io/juno-adx-client/"
+
+[project.entry-points.nbdev]
+juno_adx_client = "juno_adx_client._modidx:d"
+
+[tool.setuptools.dynamic]
+version = {attr = "juno_adx_client.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["juno_adx_client"]
+
+[tool.nbdev]
