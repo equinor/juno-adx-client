@@ -7,7 +7,7 @@ Docs: https://equinor.github.io/juno-adx-clientcore.html.md"""
 # %% auto #0
 __all__ = ['ADXClient']
 
-# %% ../nbs/00_core.ipynb #a3e609eb
+# %% ../nbs/00_core.ipynb #1f38c2dc
 import pandas as pd
 from azure.identity import DefaultAzureCredential, InteractiveBrowserCredential
 from azure.kusto.data import KustoClient, KustoConnectionStringBuilder
@@ -44,11 +44,21 @@ class ADXClient:
     def perform_query(
         self,
         query: str | None = None,
-        table: str = "Volve",
-        database: str = "test",
+        table: str | None = None,
+        database: str | None = None,
+        take_limit: int | None = None,
     ) -> pd.DataFrame | None:
-        """Run a KQL query and return the primary result table as a pandas DataFrame."""
-        resolved_query = query or f"{table} | take 10"
+        """Run a raw KQL query or a table query and return a pandas DataFrame."""
+        if database is None:
+            raise ValueError("Pass database to perform_query.")
+        if query is None and table is None:
+            raise ValueError("Pass either query or table to perform_query.")
+        if query is not None:
+            resolved_query = query
+        elif take_limit is None:
+            resolved_query = table
+        else:
+            resolved_query = f"{table} | take {take_limit}"
 
         try:
             response = self.client.execute(database, resolved_query)
