@@ -17,10 +17,12 @@ from azure.kusto.data.helpers import dataframe_from_result_table
 class ADXClient:
     """Thin wrapper around KustoClient with switchable authentication."""
 
-    def __init__(self, cluster: str, interactive_login: bool = False):
+    def __init__(self, cluster: str, database: str, interactive_login: bool = False):
         if not cluster:
             raise ValueError("Pass a cluster URL when creating an ADXClient.")
+        assert database, "Pass valid database"
         self.cluster = cluster
+        self.database = database
         self.interactive_login = interactive_login
         self.credential = self._create_credential()
         self.client = self._create_client()
@@ -49,7 +51,7 @@ class ADXClient:
         take_limit: int | None = None,
     ) -> pd.DataFrame | None:
         """Run a raw KQL query or a table query and return a pandas DataFrame."""
-        if database is None:
+        if self.database is None:
             raise ValueError("Pass database to perform_query.")
         if query is None and table is None:
             raise ValueError("Pass either query or table to perform_query.")
@@ -59,9 +61,9 @@ class ADXClient:
             resolved_query = table
         else:
             resolved_query = f"{table} | take {take_limit}"
-
+        database_to_query = database if isinstance(database, str) and database.strip() else self.database
         try:
-            response = self.client.execute(database, resolved_query)
+            response = self.client.execute(database_to_query, resolved_query)
             return dataframe_from_result_table(response.primary_results[0])
         except Exception as exc:
             print(f"Query failed with error: {exc}")
