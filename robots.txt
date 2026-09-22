@@ -1,0 +1,1 @@
+Sitemap: https://equinor.github.io/juno-adx-client/sitemap.xml

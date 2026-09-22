@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "ADXClient\ndef ADXClient(\n    cluster:str, interactive_login:bool=False\n):\nThin wrapper around KustoClient with switchable authentication.",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "juno-adx-client",
+    "section": "",
+    "text": "This package wraps the small Azure authentication and query helpers that were originally sketched in the repo notebook. It keeps the runtime dependencies explicit and moves connection setup behind functions so imports stay safe in notebooks and modules.",
+    "crumbs": [
+      "juno-adx-client"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "juno-adx-client",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nThe package source lives in nbs/00_core.ipynb and exports into juno_adx_client/core.py.\n\nInstall juno_adx_client in Development mode\n$ pip install -e .[dev]\n\n# export notebook changes into the package\n$ nbdev_export\n\n# run the full nbdev prep pipeline when Quarto is available\n$ nbdev_prepare",
+    "crumbs": [
+      "juno-adx-client"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "juno-adx-client",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall from the repo in editable mode while developing:\n$ pip install -e .[dev]\nRuntime dependencies include:\n\nazure-identity\nazure-kusto-data\nazure-keyvault-secrets\npandas\n\n\n\nDocumentation\nWhen Quarto is installed, nbdev can build docs from the notebooks and publish them to pages.",
+    "crumbs": [
+      "juno-adx-client"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "juno-adx-client",
+    "section": "How to use",
+    "text": "How to use\nCreate an ADXClient from notebook variables and pass an explicit database plus either a raw KQL query or a table name.\n\nfrom juno_adx_client import ADXClient\n\ncluster_url = ...\ndatabase_name = ...\nquery_text = ...\n\nclient = ADXClient(cluster_url, interactive_login=True)\nclient.perform_query(query=query_text, database=database_name)\n\n2",
+    "crumbs": [
+      "juno-adx-client"
+    ]
+  }
+]
